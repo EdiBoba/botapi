@@ -1,0 +1,15 @@
+language: python
+os: linux
+dist: focal
+python:
+  - "3.8"
+
+install:
+  - pip install tox
+  - pip install codecov
+
+script:
+  - tox
+
+after_success:
+  - codecov -f coverage.xml
