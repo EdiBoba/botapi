@@ -1,6 +1,8 @@
-from botapi.viber.types.base import ViberField as Field
-from botapi.viber.types.keyboard import Keyboard
-from botapi.viber.types.message import Message
+from typing import Optional
+
+from .base import ViberField
+from .keyboard import Keyboard
+from .message import Message
 
 
 class TextMessage(Message):
@@ -10,10 +12,14 @@ class TextMessage(Message):
     https://developers.viber.com/docs/api/rest-bot-api/#text-message
     """
 
-    message_type = Field(default='text', alias='type')
-    text = Field()
+    message_type = ViberField(default='text', alias='type')
+    text = ViberField()
 
-    def __init__(self, text: str, tracking_data: str = None, keyboard: Keyboard = None):
+    def __init__(
+        self, text: str,
+        tracking_data: Optional[str] = None,
+        keyboard: Optional[Keyboard] = None
+    ):
         """
         :param text: The text of the message
 

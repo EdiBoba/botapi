@@ -1,6 +1,8 @@
-from botapi.viber.types.base import ViberObject, ViberField
-from botapi.viber.types.button import Button
-from botapi.viber.types.favorites_metadata import FavoritesMetadata
+from typing import Optional
+
+from .base import ViberObject, ViberField
+from .button import Button
+from .favorites_metadata import FavoritesMetadata
 
 
 class Keyboard(ViberObject):
@@ -25,15 +27,15 @@ class Keyboard(ViberObject):
 
     def __init__(
         self,
-        buttons: list = None,
-        bg_color: str = None,
-        default_height: bool = None,
-        custom_default_height: int = None,
-        height_scale: int = None,
-        buttons_group_columns: int = None,
-        buttons_group_rows: int = None,
-        input_field_state: str = None,
-        favorites_metadata: FavoritesMetadata = None
+        buttons: Optional[list] = None,
+        bg_color: Optional[str] = None,
+        default_height: Optional[bool] = None,
+        custom_default_height: Optional[int] = None,
+        height_scale: Optional[int] = None,
+        buttons_group_columns: Optional[int] = None,
+        buttons_group_rows: Optional[int] = None,
+        input_field_state: Optional[str] = None,
+        favorites_metadata: Optional[FavoritesMetadata] = None
     ):
         """
         :param buttons: list containing keyboard buttons by order

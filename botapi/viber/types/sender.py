@@ -1,4 +1,6 @@
-from botapi.viber.types import ViberObject, ViberField
+from typing import Optional
+
+from .base import ViberObject, ViberField
 
 
 class Sender(ViberObject):
@@ -9,7 +11,7 @@ class Sender(ViberObject):
     name = ViberField()
     avatar = ViberField()
 
-    def __init__(self, name: str = None, avatar: str = None):
+    def __init__(self, name: Optional[str] = None, avatar: Optional[str] = None):
         """
         :param name: The sender’s name to display. Max 28 characters
         :param avatar: The sender’s avatar URL.

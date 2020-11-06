@@ -1,14 +1,15 @@
-from botapi.viber.utils.exceptions import ApiViberException, ApiHttpException, \
-    ApiInvalidJsonException
-from botapi.viber.utils.helpers import get_status_description
+from .exceptions import *
+from .helpers import get_status_description
 
 
-async def check_response(method, response) -> dict:
+async def check_response(method: str, response) -> dict:
     """
+    This is coroutine.
+
     Checks response after request before response is closes
 
     :param method: api method
-    :param response: response from api request
+    :param response: aiohttp.client_reqrep.ClientResponse response from api request
     :return: dict - response json
     :raises: ApiHttpException if response code not 200
     :raises: ApiInvalidJsonException if response not contain json body

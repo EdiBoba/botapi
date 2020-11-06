@@ -1,7 +1,14 @@
+from typing import Optional, Any
+
 from botapi.core import Field, BaseObjectMeta, FieldSerializeMixin
 
 
 class BaseViberObjectMeta(BaseObjectMeta):
+    """
+    Adds '_min_api_version' to class with
+    class Fields '_min_api_version' and '__min_api_version__' based value
+    """
+
     def __new__(mcs, name, bases, attr):
         attr.update({'_min_api_version': attr.pop('__min_api_version__', 1)})
         new_class = super().__new__(mcs, name, bases, attr)
@@ -28,7 +35,17 @@ class BaseViberObjectMeta(BaseObjectMeta):
 class ViberObject(FieldSerializeMixin, metaclass=BaseViberObjectMeta):
     _min_api_version: int = 1
 
-    def serialize(self, data_to_update: dict = None, add_min_api_ver: bool = None):
+    def serialize(
+        self,
+        data_to_update: Optional[dict] = None,
+        add_min_api_ver: Optional[bool] = None
+    ):
+        """
+        :param data_to_update: updates result dict from passed dict
+        :param add_min_api_ver: pass True if you want to append min_api_version
+            to result dict
+        :return: dict
+        """
         result = super().serialize()
         if data_to_update is not None:
             result.update(data_to_update)
@@ -38,14 +55,18 @@ class ViberObject(FieldSerializeMixin, metaclass=BaseViberObjectMeta):
 
 
 class ViberField(Field):
+    """
+    Adds '_min_api_version' attribute to Field
+    """
+
     def __init__(
         self,
-        base=None,
-        self_base: bool = None,
-        alias: str = None,
-        default=None,
-        min_api_version: int = None,
-        validators=None
+        base: Any = None,
+        self_base: Optional[bool] = None,
+        alias: Optional[str] = None,
+        default: Any = None,
+        min_api_version: Optional[int] = None,
+        validators: Any = None
     ):
         super().__init__(
             base,

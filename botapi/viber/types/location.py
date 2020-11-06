@@ -1,4 +1,4 @@
-from botapi.viber.types.base import ViberObject, ViberField
+from .base import ViberObject, ViberField
 
 
 class Location(ViberObject):

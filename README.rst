@@ -2,13 +2,13 @@
 BOTAPI
 ======
 
-|PyPI| |Codecov| |build| |License| |Requirements|
+|PyPI| |Python| |Codecov| |build| |License| |Requirements|
 
-.. |PyPI| image:: https://img.shields.io/pypi/v/botapi
+.. |PyPI| image:: https://img.shields.io/pypi/v/botapi?color=blue
     :target: https://pypi.org/project/botapi
     :alt: PyPI
 
-.. |License| image:: https://img.shields.io/github/license/EdiBoba/botapi
+.. |License| image:: https://img.shields.io/github/license/EdiBoba/botapi?color=brightgreen
     :target: https://github.com/EdiBoba/botapi/blob/master/LICENSE.txt
     :alt: GitHub
 
@@ -28,5 +28,9 @@ BOTAPI
 .. |Bandit| image:: https://img.shields.io/badge/security-bandit-yellow.svg
     :target: https://github.com/PyCQA/bandit
     :alt: Security Status
+
+.. |Python| image:: https://img.shields.io/pypi/pyversions/botapi
+    :target: https://pypi.org/project/botapi
+    :alt: PyPI - Python Version
 
 Social networks and messengers api framework

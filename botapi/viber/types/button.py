@@ -1,8 +1,10 @@
-from botapi.viber.types.base import ViberObject, ViberField
-from botapi.viber.types.frame import Frame
-from botapi.viber.types.internal_browser import InternalBrowser
-from botapi.viber.types.map import Map
-from botapi.viber.types.media_player import MediaPlayer
+from typing import Optional
+
+from .base import ViberObject, ViberField
+from .frame import Frame
+from .internal_browser import InternalBrowser
+from .map import Map
+from .media_player import MediaPlayer
 
 
 class Button(ViberObject):
@@ -43,31 +45,31 @@ class Button(ViberObject):
     def __init__(
         self,
         action_body: str,
-        columns: int = None,
-        rows: int = None,
-        bg_color: str = None,
-        silent: bool = None,
-        bg_media_type: str = None,
-        bg_media: str = None,
-        bg_media_scale_type: str = None,
-        image_scale_type: str = None,
-        bg_loop: bool = None,
-        action_type: str = None,
-        image: str = None,
-        text: str = None,
-        text_v_align: str = None,
-        text_h_align: str = None,
-        text_paddings: list = None,
-        text_opacity: int = None,
-        text_size: str = None,
-        open_url_type: str = None,
-        open_url_media_type: str = None,
-        text_bg_gradient_color: str = None,
-        text_should_fit: bool = None,
-        internal_browser: InternalBrowser = None,
-        open_map: Map = None,
-        frame: Frame = None,
-        media_player: MediaPlayer = None,
+        columns: Optional[int] = None,
+        rows: Optional[int] = None,
+        bg_color: Optional[str] = None,
+        silent: Optional[bool] = None,
+        bg_media_type: Optional[str] = None,
+        bg_media: Optional[str] = None,
+        bg_media_scale_type: Optional[str] = None,
+        image_scale_type: Optional[str] = None,
+        bg_loop: Optional[bool] = None,
+        action_type: Optional[str] = None,
+        image: Optional[str] = None,
+        text: Optional[str] = None,
+        text_v_align: Optional[str] = None,
+        text_h_align: Optional[str] = None,
+        text_paddings: Optional[list] = None,
+        text_opacity: Optional[int] = None,
+        text_size: Optional[str] = None,
+        open_url_type: Optional[str] = None,
+        open_url_media_type: Optional[str] = None,
+        text_bg_gradient_color: Optional[str] = None,
+        text_should_fit: Optional[bool] = None,
+        internal_browser: Optional[InternalBrowser] = None,
+        open_map: Optional[Map] = None,
+        frame: Optional[Frame] = None,
+        media_player: Optional[MediaPlayer] = None
     ):
         """
         The following parameters can be defined for each button in the “buttons”

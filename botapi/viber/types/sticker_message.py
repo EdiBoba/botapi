@@ -1,6 +1,8 @@
-from botapi.viber.types.base import ViberField
-from botapi.viber.types.keyboard import Keyboard
-from botapi.viber.types.message import Message
+from typing import Optional
+
+from .base import ViberField
+from .keyboard import Keyboard
+from .message import Message
 
 
 class StickerMessage(Message):
@@ -15,8 +17,8 @@ class StickerMessage(Message):
     def __init__(
         self,
         sticker_id: int,
-        tracking_data: str = None,
-        keyboard: Keyboard = None
+        tracking_data: Optional[str] = None,
+        keyboard: Optional[Keyboard] = None
     ):
         """
         :param sticker_id: Unique Viber sticker ID.

@@ -1,5 +1,8 @@
-from botapi.viber.types import FavoritesMetadata, Button
-from botapi.viber.types.base import ViberObject, ViberField
+from typing import Optional
+
+from .base import ViberObject, ViberField
+from .button import Button
+from .favorites_metadata import FavoritesMetadata
 
 
 class RichMedia(ViberObject):
@@ -20,10 +23,10 @@ class RichMedia(ViberObject):
     def __init__(
         self,
         buttons: list,
-        buttons_group_columns: int = None,
-        buttons_group_rows: int = None,
-        bg_color: str = None,
-        favorites_metadata: FavoritesMetadata = None
+        buttons_group_columns: Optional[int] = None,
+        buttons_group_rows: Optional[int] = None,
+        bg_color: Optional[str] = None,
+        favorites_metadata: Optional[FavoritesMetadata] = None
     ):
         """
         :param buttons: list of RichMediaButton objects.

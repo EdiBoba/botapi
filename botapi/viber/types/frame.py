@@ -1,4 +1,6 @@
-from botapi.viber.types.base import ViberObject, ViberField
+from typing import Optional
+
+from .base import ViberObject, ViberField
 
 
 class Frame(ViberObject):
@@ -16,9 +18,9 @@ class Frame(ViberObject):
 
     def __init__(
         self,
-        border_width: int = None,
-        border_color: str = None,
-        corner_radius: int = None
+        border_width: Optional[int] = None,
+        border_color: Optional[str] = None,
+        corner_radius: Optional[int] = None
     ):
         """
         Object. Draw frame above the background on the button,

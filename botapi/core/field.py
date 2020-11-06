@@ -1,3 +1,6 @@
+from typing import Any, Optional
+
+
 class Field:
     """
     Basic field for build API's by classes
@@ -11,11 +14,11 @@ class Field:
 
     def __init__(
         self,
-        base=None,
-        self_base: bool = None,
-        alias: str = None,
-        default=None,
-        validators=None
+        base: Any = None,
+        self_base: Optional[bool] = None,
+        alias: Optional[str] = None,
+        default: Any = None,
+        validators: Any = None
     ):
         """
         :param base: type of the field. When an attribute is initialized, ith type is
@@ -76,8 +79,8 @@ class Field:
         """
         Set name of attribute
 
-        :param owner:
-        :param name:
+        :param owner: the instance of the class
+        :param name: attribute name
         :return: None
         """
         self.name = name

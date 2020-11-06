@@ -1,4 +1,4 @@
-from botapi.viber.utils.constants import ALL_STATUS_CODES
+from .constants import ALL_STATUS_CODES
 
 
 def get_status_description(status_code: int) -> dict:

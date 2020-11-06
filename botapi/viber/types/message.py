@@ -1,7 +1,7 @@
 from abc import abstractmethod
 
-from botapi.viber.types import ViberObject, ViberField
-from botapi.viber.types.keyboard import Keyboard
+from .base import ViberObject, ViberField
+from .keyboard import Keyboard
 
 
 class Message(ViberObject):

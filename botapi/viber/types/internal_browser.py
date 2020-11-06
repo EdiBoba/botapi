@@ -1,4 +1,6 @@
-from botapi.viber.types.base import ViberObject, ViberField
+from typing import Optional
+
+from .base import ViberObject, ViberField
 
 
 class InternalBrowser(ViberObject):
@@ -21,13 +23,13 @@ class InternalBrowser(ViberObject):
 
     def __init__(
         self,
-        action_button: str = None,
-        action_predefined_url: str = None,
-        title_type: str = None,
-        custom_title: str = None,
-        mode: str = None,
-        footer_type: str = None,
-        action_reply_data: str = None
+        action_button: Optional[str] = None,
+        action_predefined_url: Optional[str] = None,
+        title_type: Optional[str] = None,
+        custom_title: Optional[str] = None,
+        mode: Optional[str] = None,
+        footer_type: Optional[str] = None,
+        action_reply_data: Optional[str] = None
     ):
         """
         Object, which includes internal browser configuration for

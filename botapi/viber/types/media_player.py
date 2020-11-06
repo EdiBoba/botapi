@@ -1,4 +1,6 @@
-from botapi.viber.types.base import ViberObject, ViberField
+from typing import Optional
+
+from .base import ViberObject, ViberField
 
 
 class MediaPlayer(ViberObject):
@@ -17,10 +19,10 @@ class MediaPlayer(ViberObject):
 
     def __init__(
         self,
-        title: str = None,
-        subtitle: str = None,
-        thumbnail_url: str = None,
-        loop: bool = None
+        title: Optional[str] = None,
+        subtitle: Optional[str] = None,
+        thumbnail_url: Optional[str] = None,
+        loop: Optional[bool] = None
     ):
         """
         Object. Specifies media player options.

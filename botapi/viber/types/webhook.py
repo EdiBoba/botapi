@@ -1,18 +1,20 @@
-from botapi.viber.types.base import ViberObject, ViberField as Field
+from typing import Optional
+
+from .base import ViberObject, ViberField
 
 
 class Webhook(ViberObject):
-    url = Field()
-    event_types = Field()
-    send_name = Field()
-    send_photo = Field()
+    url = ViberField()
+    event_types = ViberField()
+    send_name = ViberField()
+    send_photo = ViberField()
 
     def __init__(
         self,
         url: str,
-        event_types: list = None,
-        send_name: bool = None,
-        send_photo: bool = None
+        event_types: Optional[list] = None,
+        send_name: Optional[bool] = None,
+        send_photo: Optional[bool] = None
     ):
         """
         :param url: Account webhook URL to receive callbacks & messages from users.

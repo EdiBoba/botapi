@@ -1,11 +1,11 @@
 import pytest
 
-from botapi.core import Field, BaseObject
+from botapi.core import Field, BotObject
 
 
 @pytest.fixture
 def small_base_class():
-    class Small(BaseObject):
+    class Small(BotObject):
         field = Field(default='field')
 
     return Small
@@ -21,7 +21,7 @@ def small_base_class_child(small_base_class):
 
 @pytest.fixture
 def obj_with_fields(small_base_class):
-    class ClassWithFields(BaseObject):
+    class ClassWithFields(BotObject):
         base = Field(base=int)
         self_base = Field(self_base=True)
         base_self_base = Field(base=int, self_base=True)

@@ -1,13 +1,12 @@
 import pytest
 
-from botapi.viber.types import Contact, Location, Button, InternalBrowser, Map, Frame, \
-    MediaPlayer, FavoritesMetadata, RichMedia
+from botapi.viber import types
 from botapi.viber.types.sender import Sender
 
 
 @pytest.fixture
 def internal_browser_obj():
-    return InternalBrowser(
+    return types.InternalBrowser(
         action_button='forward',
         action_predefined_url='some_url',
         title_type='default',
@@ -20,7 +19,7 @@ def internal_browser_obj():
 
 @pytest.fixture
 def map_obj():
-    return Map(
+    return types.Map(
         latitude='37.7898',
         longitude='-122.3942'
     )
@@ -28,7 +27,7 @@ def map_obj():
 
 @pytest.fixture
 def frame_obj():
-    return Frame(
+    return types.Frame(
         border_width=1,
         border_color='#000000',
         corner_radius=0
@@ -37,7 +36,7 @@ def frame_obj():
 
 @pytest.fixture
 def media_player_obj():
-    return MediaPlayer(
+    return types.MediaPlayer(
         title='title',
         subtitle='subtitle',
         thumbnail_url='some_url',
@@ -47,7 +46,7 @@ def media_player_obj():
 
 @pytest.fixture
 def button_obj(internal_browser_obj, map_obj, frame_obj, media_player_obj):
-    return Button(
+    return types.Button(
         action_body='action body',
         columns=6,
         rows=1,
@@ -79,7 +78,7 @@ def button_obj(internal_browser_obj, map_obj, frame_obj, media_player_obj):
 
 @pytest.fixture
 def favorites_metadata_obj():
-    return FavoritesMetadata(
+    return types.FavoritesMetadata(
         data_type='link',
         url='https://en.wikipedia.org/wiki/Viber',
         title='Interesting article about Viber',
@@ -94,7 +93,7 @@ def favorites_metadata_obj():
 
 @pytest.fixture
 def rich_media_obj(button_obj, favorites_metadata_obj):
-    return RichMedia(
+    return types.RichMedia(
         buttons=[button_obj],
         buttons_group_columns=6,
         buttons_group_rows=7,
@@ -105,12 +104,12 @@ def rich_media_obj(button_obj, favorites_metadata_obj):
 
 @pytest.fixture
 def contact_obj():
-    return Contact(name="Itamar", phone_number="+972511123123")
+    return types.Contact(name="Itamar", phone_number="+972511123123")
 
 
 @pytest.fixture
 def location_obj():
-    return Location("37.7898", "-122.3942")
+    return types.Location("37.7898", "-122.3942")
 
 
 @pytest.fixture

@@ -1,4 +1,6 @@
-from botapi.viber.types.base import ViberObject, ViberField
+from typing import Optional
+
+from .base import ViberObject, ViberField
 
 
 class FavoritesMetadata(ViberObject):
@@ -23,13 +25,13 @@ class FavoritesMetadata(ViberObject):
         self,
         data_type: str,
         url: str,
-        title: str = None,
-        thumbnail: str = None,
-        domain: str = None,
-        width: int = None,
-        height: int = None,
-        alternative_url: str = None,
-        alternative_text: str = None
+        title: Optional[str] = None,
+        thumbnail: Optional[str] = None,
+        domain: Optional[str] = None,
+        width: Optional[int] = None,
+        height: Optional[int] = None,
+        alternative_url: Optional[str] = None,
+        alternative_text: Optional[str] = None
     ):
         """
         Attr info: https://developers.viber.com/docs/tools/keyboards/#favorites-metadata
