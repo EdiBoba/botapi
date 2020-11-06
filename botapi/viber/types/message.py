@@ -1,6 +1,7 @@
 from abc import abstractmethod
 
-from botapi.viber.types.base import ViberObject, ViberField as Field
+from botapi.viber.types import ViberObject, ViberField
+from botapi.viber.types.keyboard import Keyboard
 
 
 class Message(ViberObject):
@@ -10,7 +11,8 @@ class Message(ViberObject):
     https://developers.viber.com/docs/api/rest-bot-api/#general-send-message-parameters
     """
 
-    tracking_data = Field()
+    tracking_data = ViberField()
+    keyboard = ViberField(base=Keyboard)
 
     @property
     @abstractmethod

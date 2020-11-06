@@ -1,4 +1,5 @@
 from botapi.viber.types.base import ViberField
+from botapi.viber.types.keyboard import Keyboard
 from botapi.viber.types.message import Message
 from botapi.viber.types.rich_media import RichMedia
 
@@ -20,7 +21,8 @@ class RichMediaMessage(Message):
         self,
         rich_media: RichMedia,
         alt_text: str,
-        tracking_data: str = None
+        tracking_data: str = None,
+        keyboard: Keyboard = None
     ):
         """
         :param rich_media: RichMedia object to send
@@ -34,3 +36,4 @@ class RichMediaMessage(Message):
         self.rich_media = rich_media
         self.alt_text = alt_text
         self.tracking_data = tracking_data
+        self.keyboard = keyboard

@@ -1,4 +1,5 @@
 from botapi.viber.types.base import ViberField
+from botapi.viber.types.keyboard import Keyboard
 from botapi.viber.types.message import Message
 
 
@@ -15,7 +16,8 @@ class UrlMessage(Message):
     def __init__(
         self,
         media: str,
-        tracking_data: str = None
+        tracking_data: str = None,
+        keyboard: Keyboard = None
     ):
         """
         :param media: URL. Max 2,000 characters
@@ -26,3 +28,4 @@ class UrlMessage(Message):
         """
         self.media = media
         self.tracking_data = tracking_data
+        self.keyboard = keyboard

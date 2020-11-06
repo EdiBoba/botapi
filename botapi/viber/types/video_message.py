@@ -1,4 +1,5 @@
 from botapi.viber.types.base import ViberField
+from botapi.viber.types.keyboard import Keyboard
 from botapi.viber.types.message import Message
 
 
@@ -21,7 +22,8 @@ class VideoMessage(Message):
         size: int,
         duration: int = None,
         thumbnail: str = None,
-        tracking_data: str = None
+        tracking_data: str = None,
+        keyboard: Keyboard = None
     ):
         """
         :param media: URL of the video. Max size 26 MB.
@@ -48,3 +50,4 @@ class VideoMessage(Message):
         self.duration = duration
         self.thumbnail = thumbnail
         self.tracking_data = tracking_data
+        self.keyboard = keyboard

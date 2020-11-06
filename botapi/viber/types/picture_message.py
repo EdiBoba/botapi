@@ -1,4 +1,5 @@
 from botapi.viber.types.base import ViberField
+from botapi.viber.types.keyboard import Keyboard
 from botapi.viber.types.message import Message
 
 
@@ -19,7 +20,8 @@ class PictureMessage(Message):
         text: str,
         media: str,
         thumbnail: str = None,
-        tracking_data: str = None
+        tracking_data: str = None,
+        keyboard: Keyboard = None
     ):
         """
         :param text: Description of the photo. Can be an empty string if irrelevant.
@@ -42,3 +44,4 @@ class PictureMessage(Message):
         self.media = media
         self.thumbnail = thumbnail
         self.tracking_data = tracking_data
+        self.keyboard = keyboard

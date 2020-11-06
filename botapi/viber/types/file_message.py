@@ -1,4 +1,5 @@
 from botapi.viber.types.base import ViberField
+from botapi.viber.types.keyboard import Keyboard
 from botapi.viber.types.message import Message
 
 
@@ -19,7 +20,8 @@ class FileMessage(Message):
         media: str,
         size: int,
         file_name: str,
-        tracking_data: str = None
+        tracking_data: str = None,
+        keyboard: Keyboard = None
     ):
         """
         :param media: URL of the file.
@@ -42,3 +44,4 @@ class FileMessage(Message):
         self.size = size
         self.file_name = file_name
         self.tracking_data = tracking_data
+        self.keyboard = keyboard

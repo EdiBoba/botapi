@@ -1,5 +1,6 @@
 from botapi.viber.types.base import ViberField
 from botapi.viber.types.contact import Contact
+from botapi.viber.types.keyboard import Keyboard
 from botapi.viber.types.message import Message
 
 
@@ -16,7 +17,8 @@ class ContactMessage(Message):
     def __init__(
         self,
         contact: Contact,
-        tracking_data: str = None
+        tracking_data: str = None,
+        keyboard: Keyboard = None
     ):
         """
         :param contact: contact to send
@@ -27,3 +29,4 @@ class ContactMessage(Message):
         """
         self.contact = contact
         self.tracking_data = tracking_data
+        self.keyboard = keyboard
