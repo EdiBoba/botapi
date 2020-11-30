@@ -1,5 +1,5 @@
 ======
-BOTAPI
+BotAPI
 ======
 
 |PyPI| |Python| |Codecov| |build| |License| |Requirements|
@@ -33,4 +33,117 @@ BOTAPI
     :target: https://pypi.org/project/botapi
     :alt: PyPI - Python Version
 
-Social networks and messengers api framework
+Build json API fast and simple
+
+Key Features
+------------
+
+- Provides simple API.
+- Supports serialize/deserialize class objects to/from dictionary.
+
+Installation
+------------
+
+.. code-block:: text
+
+   pip install botapi
+
+Getting started
+---------------
+
+Let's take some data:
+
+.. code-block:: python
+
+    order = {
+        'user': {
+            'name': 'Jack',
+            'surname': 'Doe',
+            'phone': '123456789',
+        },
+        'paid': True,
+        'items': [
+            {
+                'name': 'product 1',
+                'id': 1,
+                'quantity': 2,
+                'subtotal': 10.5
+            },
+            {
+                'name': 'product 2',
+                'id': 2,
+                'quantity': 1,
+                'subtotal': 5
+            }
+        ]
+    }
+
+Write models:
+
+.. code-block:: python
+
+    from botapi import Model, Field, ListField
+
+    class Item(Model):
+    name = Field()
+    item_id = Field(alias='id')
+
+
+    # inherit model
+    class CartItem(Item):
+        quantity = Field(base=int)
+        subtotal = Field()
+
+
+    class UserModel(Model):
+        name = Field()
+        surname = Field()
+        phone = Field()
+
+
+    class OrderModel(Model):
+        user = Field(base=UserModel)
+        paid = Field(base=bool, default=False)
+        cart = ListField(item_base=CartItem, default=[], alias='items')
+
+Deserialize and work with data:
+
+.. code-block:: python
+
+    # deserialize data
+    obj = OrderModel(**order)
+
+    # work with data
+    obj.user.name = 'John'
+    obj.paid = True
+    obj.cart[0].subtotal = 12.5
+
+Serialize model:
+
+.. code-block:: python
+
+    # may be you want to add some data
+    comment = 'call before delivery'
+
+    # serialize data
+    print(obj.serialize(data_to_update={'comment': comment}))
+
+Output:
+
+.. code-block:: text
+
+    {'paid': True, 'items': [{'name': 'product 1', 'quantity': 2, 'id': 1, 'subtotal': 12.5}, {'name': 'product 2', 'quantity': 1, 'id': 2, 'subtotal': 5}], 'user': {'name': 'John', 'surname': 'Doe', 'phone': '123456789'}, 'comment': 'call before delivery'}
+
+Requirements
+------------
+- Python_ >= 3.8
+- aiohttp_
+
+.. _Python: https://www.python.org/
+.. _aiohttp: https://github.com/aio-libs/aiohttp
+
+License
+-------
+
+``BotAPI`` is distributed under the `Apache License 2.0 license
+<https://github.com/EdiBoba/botapi/blob/master/LICENSE.txt>`_.

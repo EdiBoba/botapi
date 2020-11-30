@@ -2,10 +2,10 @@ from abc import ABCMeta
 from typing import Optional
 
 from .field import Field
-from .mixins import FieldSerializeMixin
+from .serialize import SerializableModel
 
 
-class BaseObjectMeta(ABCMeta):
+class ModelMeta(ABCMeta):
     """
     Metaclass for creation api classes.
 
@@ -19,7 +19,7 @@ class BaseObjectMeta(ABCMeta):
         aliases = {}
 
         for parent in bases:
-            if isinstance(parent, BaseObjectMeta):
+            if isinstance(parent, ModelMeta):
                 fields.update(getattr(parent, '_fields'))
                 aliases.update(getattr(parent, '_aliases'))
 
@@ -27,7 +27,7 @@ class BaseObjectMeta(ABCMeta):
             if isinstance(value, Field):
                 fields.add(key)
                 if value.alias is not None:
-                    aliases.update({key: value.alias})
+                    aliases[key] = value.alias
                 if value.self_base is True:
                     value.base = new_class
 
@@ -35,8 +35,13 @@ class BaseObjectMeta(ABCMeta):
         setattr(new_class, '_fields', fields)
         return new_class
 
+    def __setattr__(self, key, value):
+        if isinstance(value, Field):
+            raise TypeError('Can\'t change field on the fly')
+        super(ModelMeta, self).__setattr__(key, value)
 
-class BotObject(FieldSerializeMixin, metaclass=BaseObjectMeta):
+
+class Model(SerializableModel, metaclass=ModelMeta):
     """
     Provide add data to serialize method.
 

@@ -97,10 +97,5 @@ class BotSession:
         This is coroutine.
 
         Closing session after exit context manager scope
-
-        :param exc_type:
-        :param exc_val:
-        :param exc_tb:
-        :return:
         """
         await self.close_session()
