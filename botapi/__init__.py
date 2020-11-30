@@ -1,11 +1,24 @@
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
-from . import viber
-from .core import Field, FieldSerializeMixin, BaseObjectMeta, BotObject
+import asyncio
+import sys
+
+from .field import Field, ListField
+from .model import ModelMeta, Model
+from .serialize import SerializableModel
+from .session import BotSession
+from .type_cast import TypeCast
+
+if sys.platform.startswith('win'):
+    if sys.version_info[0] == 3 and sys.version_info[1] >= 8:
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 __all__ = (
     'Field',
-    'FieldSerializeMixin',
-    'BaseObjectMeta',
-    'BotObject'
+    'ListField',
+    'SerializableModel',
+    'BotSession',
+    'ModelMeta',
+    'Model',
+    'TypeCast'
 )
