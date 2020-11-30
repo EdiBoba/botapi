@@ -26,11 +26,11 @@ setup(
     license='Apache 2.0',
     author='Vyacheslav Rineisky',
     author_email='rineisky@gmail.com',
-    description='Provides python api to SN and messengers',
+    description="Framework for build json API's",
     long_description=read('README.rst'),
     long_description_content_type='text/x-rst',
     classifiers=(
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Framework :: AsyncIO',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
