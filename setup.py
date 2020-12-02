@@ -31,17 +31,15 @@ setup(
     long_description_content_type='text/x-rst',
     classifiers=(
         'Development Status :: 5 - Production/Stable',
-        'Framework :: AsyncIO',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'License :: OSI Approved :: Apache Software License',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
         'Operating System :: OS Independent'
     ),
-    install_requires=[
-        'aiohttp',
-    ],
     include_package_data=True
 )
