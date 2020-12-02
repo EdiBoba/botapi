@@ -1,4 +1,4 @@
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 import asyncio
 import sys
@@ -6,7 +6,6 @@ import sys
 from .field import Field, ListField
 from .model import ModelMeta, Model
 from .serialize import SerializableModel
-from .session import BotSession
 from .type_cast import TypeCast
 
 if sys.platform.startswith('win'):
@@ -17,7 +16,6 @@ __all__ = (
     'Field',
     'ListField',
     'SerializableModel',
-    'BotSession',
     'ModelMeta',
     'Model',
     'TypeCast'

@@ -40,6 +40,7 @@ Key Features
 
 - Provides simple API.
 - Supports serialize/deserialize class objects to/from dictionary.
+- Field type may be the same with model type (self_base Field attribute)
 
 Installation
 ------------
@@ -136,11 +137,9 @@ Output:
 
 Requirements
 ------------
-- Python_ >= 3.8
-- aiohttp_
+- Python_ >= 3.6
 
 .. _Python: https://www.python.org/
-.. _aiohttp: https://github.com/aio-libs/aiohttp
 
 License
 -------
