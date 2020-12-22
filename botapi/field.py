@@ -1,7 +1,8 @@
-from typing import Any, Optional
+from datetime import datetime
+from typing import Any, Optional, Union
 
 from .type_cast import TypeCast
-from .types import TypedList
+from .types import DateTime
 
 
 class Field:
@@ -73,9 +74,8 @@ class Field:
         :return: None
         :raises TypeError: if the value is Field instance
         """
-        if isinstance(value, Field):
-            raise TypeError('Can\'t change field on the fly')
-        elif value is not None:
+        self.check_value(value)
+        if value is not None:
             instance.__dict__[self.name] = TypeCast.cast(
                 self.fullname,
                 value,
@@ -83,6 +83,17 @@ class Field:
             )
         else:
             instance.__dict__.pop(self.name, None)
+
+    @staticmethod
+    def check_value(value: Any) -> None:
+        """
+        If value type is Field raises TypeError
+
+        :param value: Any value
+        :return: None
+        """
+        if isinstance(value, Field):
+            raise TypeError('Field value must be a non Field type')
 
 
 class ListField(Field):
@@ -98,9 +109,41 @@ class ListField(Field):
         self.item_base = item_base
 
     def __set__(self, instance, value):
-        super().__set__(instance, TypeCast.cast(
+        self.check_value(value)
+        if value is not None:
+            instance.__dict__[self.name] = TypeCast.typed_list_cast(
+                self.fullname,
+                value,
+                self.item_base
+            )
+        else:
+            instance.__dict__.pop(self.name, None)
+
+
+class DateTimeField(Field):
+    date_format: str
+
+    def __init__(
+        self,
+        date_format: Optional[str] = None,
+        alias: Optional[str] = None,
+        default: Union[str, datetime] = None
+    ):
+        self.date_format = date_format
+        default = TypeCast.datetime_cast(
             self.fullname,
-            value,
-            TypedList,
-            self.item_base
-        ))
+            default,
+            date_format
+        )
+        super().__init__(base=DateTime, alias=alias, default=default)
+
+    def __set__(self, instance, value):
+        self.check_value(value)
+        if value is not None:
+            instance.__dict__[self.name] = TypeCast.datetime_cast(
+                self.fullname,
+                value,
+                self.date_format
+            )
+        else:
+            instance.__dict__.pop(self.name, None)

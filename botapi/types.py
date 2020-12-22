@@ -1,9 +1,9 @@
+from datetime import datetime
 from typing import Any, Iterable
 
 
 class TypedList(list):
-    """
-    Default list + type checking
+    """Default list + type checking
     """
 
     item_type: Any
@@ -43,3 +43,19 @@ class TypedList(list):
         if self.item_type is not None:
             for new_item in iterable:
                 self._check_item_type(new_item)
+
+
+class DateTime(datetime):
+    """default datetime + support date format serialize
+    """
+
+    date_format: str = None
+
+    def __str__(self):
+        if self.date_format is None:
+            return self.isoformat(sep=' ', timespec='seconds')
+        else:
+            return self.strftime(self.date_format)
+
+    def set_format(self, date_format: str = None):
+        self.date_format = date_format

@@ -62,6 +62,7 @@ Let's take some data:
             'surname': 'Doe',
             'phone': '123456789',
         },
+        'date': '2020-12-10 10:12:13',
         'paid': True,
         'items': [
             {
@@ -83,11 +84,13 @@ Write models:
 
 .. code-block:: python
 
+    from datetime import datetime
+
     from botapi import Model, Field, ListField
 
     class Item(Model):
-    name = Field()
-    item_id = Field(alias='id')
+        name = Field()
+        item_id = Field(alias='id')
 
 
     # inherit model
@@ -106,6 +109,8 @@ Write models:
         user = Field(base=UserModel)
         paid = Field(base=bool, default=False)
         cart = ListField(item_base=CartItem, default=[], alias='items')
+        order_date = DateTimeField()
+
 
 Deserialize and work with data:
 
@@ -118,6 +123,7 @@ Deserialize and work with data:
     obj.user.name = 'John'
     obj.paid = True
     obj.cart[0].subtotal = 12.5
+    obj.order_date = datetime.now()
 
 Serialize model:
 
@@ -133,11 +139,11 @@ Output:
 
 .. code-block:: text
 
-    {'paid': True, 'items': [{'name': 'product 1', 'quantity': 2, 'id': 1, 'subtotal': 12.5}, {'name': 'product 2', 'quantity': 1, 'id': 2, 'subtotal': 5}], 'user': {'name': 'John', 'surname': 'Doe', 'phone': '123456789'}, 'comment': 'call before delivery'}
+    {'user': {'surname': 'Doe', 'phone': '123456789', 'name': 'John'}, 'paid': True, 'items': [{'quantity': 2, 'subtotal': 12.5, 'id': 1, 'name': 'product 1'}, {'quantity': 1, 'subtotal': 5, 'id': 2, 'name': 'product 2'}], 'order_date': '2020-12-22 12:04:39', 'comment': 'call before delivery'}
 
 Requirements
 ------------
-- Python_ >= 3.6
+- Python_ >= 3.7
 
 .. _Python: https://www.python.org/
 

@@ -1,6 +1,8 @@
+from datetime import datetime
+
 import pytest
 
-from botapi import Model, Field, ListField
+from botapi import Model, Field, ListField, DateTimeField
 
 
 @pytest.fixture(scope='function')
@@ -20,6 +22,9 @@ def parent_model(nested_model):
         int_list = ListField(item_base=int)
         model_list = ListField(item_base=nested_model)
         simple_list = ListField()
+        date_field = Field(base=datetime)
+        datetime_field = DateTimeField()
+        dateformat_field = DateTimeField(date_format='%H:%M:%S')
 
     return ParentModel
 

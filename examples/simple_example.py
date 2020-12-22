@@ -1,4 +1,6 @@
-from botapi import Model, Field, ListField
+from datetime import datetime
+
+from botapi import Model, Field, ListField, DateTimeField
 
 order = {
     'user': {
@@ -6,6 +8,7 @@ order = {
         'surname': 'Doe',
         'phone': '123456789',
     },
+    'date': '2020-12-10 10:12:13',
     'paid': True,
     'items': [
         {
@@ -45,6 +48,7 @@ class OrderModel(Model):
     user = Field(base=UserModel)
     paid = Field(base=bool, default=False)
     cart = ListField(item_base=CartItem, default=[], alias='items')
+    order_date = DateTimeField()
 
 
 # deserialize data
@@ -54,6 +58,7 @@ obj = OrderModel(**order)
 obj.user.name = 'John'
 obj.paid = True
 obj.cart[0].subtotal = 12.5
+obj.order_date = datetime.now()
 
 # may be you want to add some data
 comment = 'call before delivery'

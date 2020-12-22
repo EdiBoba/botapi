@@ -1,50 +1,81 @@
+from datetime import datetime
 from typing import Any
 
+from .exceptions import TypeCastException
 from .serialize import SerializableModel
-from .types import TypedList
+from .types import TypedList, DateTime
+
+
+def type_cast(func):
+    def wrapper(var_name: str, value: Any, *args, **kwargs):
+        if value is None:
+            return None
+        return func(var_name, value, *args, **kwargs)
+
+    return wrapper
 
 
 class TypeCast:
     @staticmethod
-    def cast(
-        name: str,
-        value: Any,
-        new_type: Any = None,
-        item_type: Any = None
-    ) -> Any:
+    @type_cast
+    def cast(var_name: str, value: Any, var_type: Any = None, *args, **kwargs) -> Any:
         """
         Casts the value to the new_type. If new_type is TypedList, casts every
         item of value to item_type if item_type is not None
 
-        :param name: name of the attribute (used to raise errors)
+        :param var_name: name of the attribute (used to raise errors)
         :param value: value to cast
-        :param new_type: desired type
-        :param item_type: type of the TypedList item
+        :param var_type: desired type
         :return: casted value
         """
-        if value is None:
-            return None
-        elif new_type is None or isinstance(value, new_type):
+        if var_type is None or isinstance(value, var_type):
             return value
-        elif issubclass(new_type, SerializableModel) and isinstance(value, dict):
-            return new_type(**value)
-        elif issubclass(new_type, TypedList):
-            return TypeCast.typed_list_cast(
-                name,
-                value,
-                item_type
-            )
+        elif issubclass(var_type, SerializableModel) and isinstance(value, dict):
+            return var_type(**value)
+        elif issubclass(var_type, datetime) and type(value) == str:
+            return datetime.fromisoformat(value)
         else:
-            raise TypeError(
-                f"Can't cast {name} new value from {type(value)} to {new_type}"
-            )
+            raise TypeCastException(var_name, value, var_type)
 
     @staticmethod
-    def typed_list_cast(name, value, item_type=None) -> TypedList:
-        """
-        Returns TypedList with type casted items
+    @type_cast
+    def datetime_cast(var_name, value, date_format: str = None, *args, **kwargs):
+        """Returns DateTime casted from value
 
-        :param name: name of the attribute (used to raise errors)
+        :param var_name: name of the attribute (used to raise errors)
+        :param value: str or datetime object
+        :param date_format: str with date format
+        :return: DateTime
+        """
+        if type(value) == str:
+            if date_format is None:
+                result = DateTime.fromisoformat(value)
+            else:
+                result = DateTime.strptime(value, date_format)
+        elif type(value) == DateTime:
+            result = value
+        elif isinstance(value, datetime):
+            result = DateTime(
+                value.year,
+                value.month,
+                value.day,
+                value.hour,
+                value.minute,
+                value.second,
+                value.microsecond,
+                value.tzinfo
+            )
+        else:
+            raise TypeCastException(var_name, value, DateTime)
+        result.set_format(date_format=date_format)
+        return result
+
+    @staticmethod
+    @type_cast
+    def typed_list_cast(var_name, value, item_type=None, *args, **kwargs) -> TypedList:
+        """Returns TypedList with type casted items
+
+        :param var_name: name of the attribute (used to raise errors)
         :param value: iterable to cast
         :param item_type: type of EVERY item
         :return: TypedList
@@ -52,21 +83,8 @@ class TypeCast:
         if item_type is None:
             return TypedList(value, None)
         elif issubclass(item_type, SerializableModel):
-            return TypedList(
-                [
-                    TypeCast.cast(
-                        name,
-                        item,
-                        item_type
-                    ) for item in value
-                ],
-                item_type
-            )
+            return TypedList([
+                TypeCast.cast(var_name, item, item_type) for item in value
+            ], item_type)
         else:
-            for item in value:
-                if not isinstance(item, item_type):
-                    raise TypeError(
-                        f"Can't cast {name} new item value "
-                        f"from {type(item)} to {item_type}"
-                    )
             return TypedList(value, item_type)

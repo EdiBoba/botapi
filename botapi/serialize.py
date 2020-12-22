@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from .types import TypedList
 
 
@@ -25,8 +27,7 @@ class SerializableModel:
             setattr(self, field, value)
 
     def serialize(self) -> dict:
-        """
-        Recursively serializes an api object
+        """Recursively serializes an api object
 
         :return: dict
         """
@@ -41,10 +42,17 @@ class SerializableModel:
 
     @staticmethod
     def _serialize_value(value):
-        if type(value) == TypedList:
+        """Serialize a single value
+
+        :param value: value to serialize
+        :return: Any serialized value
+        """
+        if isinstance(value, SerializableModel):
+            return value.serialize()
+        elif type(value) == TypedList:
             return [i.serialize() if isinstance(i, SerializableModel) else i
                     for i in value]
-        elif isinstance(value, SerializableModel):
-            return value.serialize()
+        elif isinstance(value, datetime):
+            return str(value)
         else:
             return value
