@@ -59,3 +59,6 @@ class Model(SerializableModel, metaclass=ModelMeta):
         if data_to_update is not None:
             result.update(data_to_update)
         return result
+
+
+print('hello')
